@@ -1,27 +1,52 @@
 import React from 'react'
-// import {default as api} from '../store/apiSlice';
+import {default as api} from '../store/apiSlice';
 // import { getLabels } from '../helper/helper';
+// const obj = [
+//     {
+//         type: "Savings",
+//         color: '#f9c74f',
+//         percent: 45        
+//     },
+//     {
+//         type: "Investment",
+//         color: '#f9c74f',
+//         percent: 20
+//     },
+//     {
+//         type: "Expense",
+//         color: 'rgb(54, 162, 235)',
+//         percent: 10
+//     }
+// ]
 
 export default function Labels() {
 
-//    const { data, isFetching , isSuccess, isError } = api.useGetLabelsQuery()
+   const { data, isFetching , isSuccess, isError } = api.useGetLabelsQuery()
     let Transactions;
 
     
 
-    // if(isFetching){
-    //     Transactions = <div>Fetching</div>;
-    // }else if(isSuccess){
-    //     Transactions = getLabels(data, 'type').map((v, i) => <LabelComponent key={i} data={v}></LabelComponent>);
-    // }else if(isError){
-    //     Transactions = <div>Error</div>
-    // }
+    if(isFetching){
+        Transactions = <div>Fetching</div>;
+    }else if(isSuccess){
+        // Transactions = getLabels(data, 'type').map((v, i) => <LabelComponent key={i} data={v}></LabelComponent>);
+        Transactions = data.map((v, i) => <LabelComponent key={i} data={v}></LabelComponent>);
+    }else if(isError){
+        Transactions = <div>Error</div>
+    }
 
   return (
     <>
         {Transactions}
     </>
   )
+    // const { data, isFetching, isSuccess, isError } = api.useGetCategoriesQuery()
+    // console.log(data)
+    // return (
+    //     <>
+    // {obj.map((v, i) => <LabelComponent key={i} data={v}></LabelComponent>)}
+    //     </>
+    // )
 }
 
 function LabelComponent({ data }){
