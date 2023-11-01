@@ -63,11 +63,8 @@ async function get_Categories(req, res) {
 async function create_Transaction(req, res) {
     try {
         if (!req.body) {
-            console.log("Hello world!");
             return res.status(400).json("Post HTTP Data not Provided");
         }
-
-        // console.log(req.body);
 
         const { name, type, amount } = req.body;
 
