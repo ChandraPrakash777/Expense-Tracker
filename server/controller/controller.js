@@ -15,8 +15,8 @@ const model = require('../models/model');
 async function create_Categories(req, res) {
     try {
         const Create = new model.Categories({
-            type: "Investment",
-            color: "#FCBE44"
+            type: "Savings",
+            color: "#1F3B5C"
         });
 
         const createdCategory = await Create.save();
@@ -30,12 +30,16 @@ async function create_Categories(req, res) {
 
 //  get: http://localhost:8080/api/categories
 async function get_Categories(req, res) {
-    let data = await model.Categories.find({})
+    // Fetch all categories from the database
+    let data = await model.Categories.find({});
+    // console.log(data);
 
+    // Map the data to include only 'type' and 'color' properties
     let filter = await data.map(v => Object.assign({}, { type: v.type, color: v.color }));
+
+    // Send the filtered data as a JSON response
     return res.json(filter);
 }
-
 //  post: http://localhost:8080/api/transaction
 // async function create_Transaction(req, res) {
 //     if (!req.body) return res.status(400).json("Post HTTP Data not Provided");
@@ -59,11 +63,14 @@ async function get_Categories(req, res) {
 async function create_Transaction(req, res) {
     try {
         if (!req.body) {
+            console.log("Hello world!");
             return res.status(400).json("Post HTTP Data not Provided");
         }
 
+        // console.log(req.body);
+
         const { name, type, amount } = req.body;
-        
+
         const create = new model.Transaction({
             name,
             type,
